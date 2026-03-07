@@ -1,73 +1,150 @@
-# React + TypeScript + Vite
+# React Chess (Built From Scratch)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A chess game built with **React and TypeScript**, where the board and game logic are implemented from scratch instead of relying on prebuilt chess libraries.
 
-Currently, two official plugins are available:
+The goal of this project is to understand how chess engines and board games are structured while practicing React architecture, state management, and algorithmic thinking.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## React Compiler
+* 8×8 chess board rendered with CSS Grid
+* Initial chess piece setup
+* Board generated from a 2D array
+* Component-based architecture
+* Written in React with TypeScript
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Tech Stack
 
-## Expanding the ESLint configuration
+* React
+* TypeScript
+* Tailwind CSS
+* CSS Grid
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Project Structure
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+src
+│
+├─ components
+│   ├─ Board.tsx
+│   └─ Square.tsx
+│
+├─ engine
+│   └─ initialBoard.ts
+│
+├─ App.tsx
+└─ main.tsx
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Components
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+**Board**
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Responsible for rendering the chess grid and mapping over the board state.
+
+**Square**
+
+Represents a single square on the board and displays a chess piece.
+
+## Board Representation
+
+The chess board is represented as a **2D array (8×8)**.
+
+Example:
+
 ```
+[
+ ['br','bn','bb','bq','bk','bb','bn','br'],
+ ['bp','bp','bp','bp','bp','bp','bp','bp'],
+ ['','','','','','','',''],
+ ['','','','','','','',''],
+ ['','','','','','','',''],
+ ['','','','','','','',''],
+ ['wp','wp','wp','wp','wp','wp','wp','wp'],
+ ['wr','wn','wb','wq','wk','wb','wn','wr']
+]
+```
+
+Piece notation:
+
+| Code | Piece  |
+| ---- | ------ |
+| p    | Pawn   |
+| r    | Rook   |
+| n    | Knight |
+| b    | Bishop |
+| q    | Queen  |
+| k    | King   |
+
+Example:
+
+```
+wp → white pawn  
+bk → black king
+```
+
+## Rendering the Board
+
+The board is rendered using **nested mapping**:
+
+```
+board.map((row, rindex) =>
+  row.map((piece, cindex) =>
+    <Square />
+  )
+)
+```
+
+This produces the full **64-square grid**.
+
+## Square Coloring Logic
+
+Chessboard colors are generated using:
+
+```
+(row + column) % 2
+```
+
+This alternates square colors to create the standard chessboard pattern.
+
+## Future Improvements
+
+Planned features include:
+
+* Piece movement
+* Move validation
+* Turn system
+* Captures
+* Check and checkmate detection
+* Castling and en passant
+* Simple AI opponent
+
+## Purpose of the Project
+
+This project focuses on **learning and building the chess engine logic manually** rather than relying on libraries like `chess.js`.
+
+It helps practice:
+
+* React component architecture
+* State management
+* Grid layouts
+* Game logic design
+* Algorithmic thinking
+
+## Running the Project
+
+Install dependencies:
+
+```
+npm install
+```
+
+Start the development server:
+
+```
+npm run dev
+```
+
+---
+
+This project is part of my journey of building increasingly complex React applications from scratch.
+

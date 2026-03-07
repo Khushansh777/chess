@@ -5,7 +5,7 @@ type props = {
 }
 const Board = ({ board }: props) => {
   return (
-    <div className='grid grid-cols-8 w-[800px] h-[800px] border border-black'>
+    <div className='grid grid-cols-8 grid-rows-8 w-[700px] h-[700px] border'>
       {board.map((r, rindex) => {
         return r.map((c, cindex) => {
           return <Square key={`${rindex}-${cindex}`} column={c} cindex={cindex} rindex={rindex} />

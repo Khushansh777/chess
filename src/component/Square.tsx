@@ -7,7 +7,7 @@ type props ={
 
 const Square = ({column, cindex, rindex}: props) => {
   return (
-   <div key={cindex} className={`flex justify-center items-center text-center ${(rindex + cindex) % 2 === 0 ? 'bg-white' : 'bg-black'}`}>
+   <div key={cindex} className={`flex items-center justify-center w-full h-full text-5xl ${(rindex + cindex) % 2 === 0 ? 'bg-white text-black' : 'bg-black text-white'}`}>
               {column}
             </div>
   )
