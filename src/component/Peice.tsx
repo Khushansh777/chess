@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 type props = {
   column: string;
 };
@@ -18,7 +18,7 @@ const Peice = ({ column }: props) => {
     bq: "♛",
     bk: "♚",
   };
-  return <div>{pieces[column] || ""}</div>;
+  return <div className="text-5xl cursor-pointer ">{pieces[column] || ""}</div>;
 };
 
 export default Peice;
