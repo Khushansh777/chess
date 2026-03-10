@@ -11,12 +11,12 @@ type props = {
 };
 
 const Square = ({ column, cindex, rindex, isClicked, setIsClicked }: props) => {
-  const isSelected =
+  const isSelected: boolean =
     isClicked?.cindex === cindex && isClicked?.rindex === rindex;
 
-  const color =
+  const color: string =
     (rindex + cindex) % 2 === 0 ? "bg-white text-black" : "bg-black text-white";
-
+  console.log(rindex, cindex);
   return (
     <div
       key={cindex}
