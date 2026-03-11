@@ -1,5 +1,6 @@
 import React from "react";
 import Peice from "./Peice";
+import { getInfo } from "../engine/moveGenerator";
 type props = {
   column: string;
   cindex: number;
@@ -8,15 +9,41 @@ type props = {
   setIsClicked: React.Dispatch<
     React.SetStateAction<{ rindex: number; cindex: number } | null>
   >;
+  board: string[][];
 };
-
-const Square = ({ column, cindex, rindex, isClicked, setIsClicked }: props) => {
+type getInfoProps = {
+  rindex: number;
+  cindex: number;
+  column: string;
+  board: string[][];
+};
+const Square = ({
+  column,
+  cindex,
+  rindex,
+  isClicked,
+  setIsClicked,
+  board,
+}: props) => {
   const isSelected: boolean =
     isClicked?.cindex === cindex && isClicked?.rindex === rindex;
-
+  // to set the color of square
   const color: string =
     (rindex + cindex) % 2 === 0 ? "bg-white text-black" : "bg-black text-white";
-  console.log(rindex, cindex);
+  // to transfer info and run setIsClicked simultaneously
+  const getInfoAndSetIsClicked = ({
+    rindex,
+    cindex,
+    column,
+    board,
+  }: getInfoProps) => {
+    getInfo({ rindex, cindex, column, board });
+    setIsClicked((prev) =>
+      prev?.cindex === cindex && prev?.rindex === rindex
+        ? null
+        : { rindex: rindex, cindex: cindex },
+    );
+  };
   return (
     <div
       key={cindex}
@@ -24,11 +51,7 @@ const Square = ({ column, cindex, rindex, isClicked, setIsClicked }: props) => {
         ${isSelected ? "bg-red-500" : color}
       `}
       onClick={() => {
-        setIsClicked((prev) =>
-          prev?.cindex === cindex && prev?.rindex === rindex
-            ? null
-            : { rindex: rindex, cindex: cindex },
-        );
+        getInfoAndSetIsClicked({ rindex, cindex, column, board });
       }}
     >
       <Peice key={`${rindex}-${cindex}`} column={column} />

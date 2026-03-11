@@ -6,7 +6,7 @@ type props = {
 
 export const Pawn = ({ row, col }: props) => {
   const directions: number[][] = [];
-  let move;
+  let move: [number, number];
   if (row === 1 || row === 6) {
     move = color === "white" ? [0, -2] : [0, 2];
     directions.push(move);
