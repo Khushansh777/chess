@@ -1,15 +1,20 @@
-import { useState } from "react";
-import InitialBoard from "./engine/InitialBoard";
+import Board from "./component/Board";
+
+const INITIAL_BOARD: string[][] = [
+  ["br", "bn", "bb", "bq", "bk", "bb", "bn", "br"],
+  ["bp", "bp", "bp", "bp", "bp", "bp", "bp", "bp"],
+  ["", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", ""],
+  ["wp", "wp", "wp", "wp", "wp", "wp", "wp", "wp"],
+  ["wr", "wn", "wb", "wq", "wk", "wb", "wn", "wr"],
+];
 
 const App = () => {
-  const [board, setBoard] = useState<string[][]>([]);
-  const initBoard = (array: string[][]) => {
-    setBoard(array);
-  };
-
   return (
     <div className="flex justify-center items-center h-screen w-screen">
-      <InitialBoard initBoard={initBoard} board={board} />
+      <Board board={INITIAL_BOARD} />
     </div>
   );
 };

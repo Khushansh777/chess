@@ -1,60 +1,41 @@
-import React from "react";
 import Peice from "./Peice";
-import { getInfo } from "../engine/moveGenerator";
-type props = {
+
+type Props = {
   column: string;
-  cindex: number;
-  rindex: number;
-  isClicked: { rindex: number; cindex: number } | null;
-  setIsClicked: React.Dispatch<
-    React.SetStateAction<{ rindex: number; cindex: number } | null>
-  >;
-  board: string[][];
-};
-type getInfoProps = {
   rindex: number;
   cindex: number;
-  column: string;
-  board: string[][];
+  isSelected: boolean;
+  isValidMove: boolean;
+  handleClick: (rindex: number, cindex: number) => void;
 };
+
 const Square = ({
   column,
-  cindex,
   rindex,
-  isClicked,
-  setIsClicked,
-  board,
-}: props) => {
-  const isSelected: boolean =
-    isClicked?.cindex === cindex && isClicked?.rindex === rindex;
-  // to set the color of square
-  const color: string =
+  cindex,
+  isSelected,
+  isValidMove,
+  handleClick,
+}: Props) => {
+  const baseColor =
     (rindex + cindex) % 2 === 0 ? "bg-white text-black" : "bg-black text-white";
-  // to transfer info and run setIsClicked simultaneously
-  const getInfoAndSetIsClicked = ({
-    rindex,
-    cindex,
-    column,
-    board,
-  }: getInfoProps) => {
-    getInfo({ rindex, cindex, column, board });
-    setIsClicked((prev) =>
-      prev?.cindex === cindex && prev?.rindex === rindex
-        ? null
-        : { rindex: rindex, cindex: cindex },
-    );
-  };
+
+  const highlight = isSelected
+    ? "bg-yellow-400 text-black"
+    : isValidMove
+      ? "bg-green-400 text-black"
+      : baseColor;
+
   return (
     <div
-      key={cindex}
-      className={`flex items-center justify-center w-full h-full text-5xl cursor-pointer
-        ${isSelected ? "bg-red-500" : color}
-      `}
-      onClick={() => {
-        getInfoAndSetIsClicked({ rindex, cindex, column, board });
-      }}
+      onClick={() => handleClick(rindex, cindex)}
+      className={`relative flex items-center justify-center w-full h-full text-5xl cursor-pointer ${highlight}`}
     >
-      <Peice key={`${rindex}-${cindex}`} column={column} />
+      <Peice column={column} />
+
+      {isValidMove && !column && (
+        <span className="absolute w-4 h-4 rounded-full bg-green-600 opacity-70" />
+      )}
     </div>
   );
 };

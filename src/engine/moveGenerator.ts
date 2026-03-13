@@ -18,7 +18,12 @@ export const getInfo = ({ rindex, cindex, column, board }: InfoProps) => {
 };
 
 // will select which peice rule to run
-const getSelectRules = ({ rindex, cindex, column, board }: InfoProps) => {
+export const getSelectRules = ({
+  rindex,
+  cindex,
+  column,
+  board,
+}: InfoProps): number[][] => {
   const col: number = cindex;
   const row: number = rindex;
 
@@ -36,4 +41,3 @@ const getSelectRules = ({ rindex, cindex, column, board }: InfoProps) => {
   if (!ComponentToRender) return [];
   return ComponentToRender({ row, col, board });
 };
-export const color: string = "";
