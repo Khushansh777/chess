@@ -1,6 +1,6 @@
 import Square from "./Square";
 import { getSelectRules } from "../engine/moveGenerator";
-import { useState, type Dispatch, type SetStateAction } from "react";
+import { useState } from "react";
 
 type Props = {
   board: string[][];
